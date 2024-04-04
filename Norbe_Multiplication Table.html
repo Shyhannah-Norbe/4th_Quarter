@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head> 
+    <title> Multiplication Table </title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <script>
+            var n = prompt("Input a number from 2 to 10 for the number of rows: ");
+            while (n<2 || n>10){
+                n = prompt("The number should be from 2 to 10. Input again: ");
+            }
+
+            var m = prompt("Input another number from 2 to 10 for the number of columns: ");
+            while (m<2 || m>10){
+                m = prompt("The number should be from 2 to 10. Input again: ");
+            }
+
+            var row = 1;
+            while (row <= n){
+                document.write("<tr>");
+                var column = 1;
+                while (column <= m){
+                    var table = column*row;
+                    document.write("<td>" + table + "</td>");
+                    column++;
+                }
+                document.write("</tr>");
+                row++;
+            }
+        </script>
+    </table>
+</body>
+</html>
