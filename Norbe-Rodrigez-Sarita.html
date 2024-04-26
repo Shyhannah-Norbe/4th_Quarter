@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Supplies Inventory System</title>
+    <style>
+        body {
+			background-color: #CACFD6;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #D6E5E3;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            background-color: #517664;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #2D3319;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #2D3319;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #D6E5E3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Supplies Inventory System</h1>
+        <div>
+            <button onclick="addItem(prompt('Please enter item name: '), parseInt(prompt('Please enter item amount: ')))">Add Item</button>
+            <button onclick="removeItem(prompt('Please enter item name: '))">Remove Item</button>
+            <button onclick="addNumItem(prompt('Please enter item name: '), parseInt(prompt('Please enter the item amount you want to add: ')))">Add Item Quantity</button>
+            <button onclick="subNumItem(prompt('Please enter item name: '), parseInt(prompt('Please enter the item amount you want to subtract: ')))">Subtract Item Quantity</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Item Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="inventoryList">
+            </tbody>
+        </table>
+    </div>
+
+    <script>  
+        var inventory = [];
+
+        function addItem(name, num){
+            var itemNames = inventory.map(function(item){return item.itemName});
+
+            if (itemNames.includes(name)) {
+                alert("Item is already in the inventory.");
+            }
+
+            else if(num > 0 && !isNaN(num)){
+                inventory.push({itemName: name, itemAmount: num});
+                displayInventory();
+            }
+            else{
+                alert("Please input a valid item amount.");
+            }
+        }
+
+        function removeItem(name){
+            var foundIndex = inventory.findIndex(function(item){return item.itemName === name});
+            if(foundIndex !== -1){
+                inventory.splice(foundIndex, 1);
+                displayInventory();
+            }
+            else{
+                alert("Item cannot be found nor removed.");
+            }
+        }
+
+        function addNumItem(name, num){
+            var foundIndex = inventory.findIndex(function(item){return item.itemName === name});
+            if(foundIndex !== -1){
+                inventory[foundIndex].itemAmount += num;
+                displayInventory();
+            }
+            else{
+                alert("Item is not in the inventory.");
+            }
+        }
+
+        function subNumItem(name, num){
+            var foundIndex = inventory.findIndex(function(item){return item.itemName === name});
+            if(foundIndex !== -1){
+                if(inventory[foundIndex].itemAmount >= num){
+                    inventory[foundIndex].itemAmount -= num;
+                    displayInventory();
+                }
+                else{
+                    alert("You can only subtract up to " + inventory[foundIndex].itemAmount + " items.");
+                }
+            }
+            else{
+                alert("Item is not in the inventory.");
+            }
+        } 
+
+        function displayInventory() {
+            var table = "<table>";
+
+            for (var i = 0; i < inventory.length; i++) {
+                table += "<tr>";
+                table += "<td>" + inventory[i].itemName + "</td>";
+                table += "<td>" + inventory[i].itemAmount + "</td>";
+                table += "</tr>";
+            }
+
+            table += "</table>";
+            document.getElementById("inventoryList").innerHTML = table;
+        }
+    </script>
+</body>
+</html>
