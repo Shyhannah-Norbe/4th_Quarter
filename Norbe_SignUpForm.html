@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title>Sign Up Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        legend {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 15px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #displayValues {
+            margin-top: 20px;
+        }
+
+        #displayValues h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        #displayValues p {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="signupForm" onsubmit="submitForm(); return false;" onreset="clearValues()">
+        <fieldset>
+            <legend>Sign Up</legend>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required onblur="noInput(this)" onfocus="hasInput(this)">
+
+            <label for="pname">Preferred Name:</label>
+            <input type="text" id="pname" name="pname" required onblur="noInput(this)" onfocus="hasInput(this)">
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required onblur="noInput(this)" onfocus="hasInput(this)">
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="prefer">Prefer not to mention</option>
+            </select>
+
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" name="pass" required onblur="noInput(this)" onfocus="hasInput(this)">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required onblur="noInput(this)" onfocus="hasInput(this)">
+
+            <label for="add">Address:</label>
+            <input type="text" id="add" name="add" required onblur="noInput(this)" onfocus="hasInput(this)">
+
+            <label for="interest">Interest:</label>
+            <textarea id="interest" name="interest" required onblur="noInput(this)" onfocus="hasInput(this)"></textarea>
+        </fieldset>
+
+        <button type="submit">Submit</button>
+        <button type="reset">Clear</button>
+    </form>
+
+    <div id="displayValues"></div>
+
+    <script>
+         function noInput(input) {
+            if (!input.value) {
+                input.style.border = '2px solid red';
+            } 
+            else{
+                hasInput(input);
+            }
+        }
+
+        function hasInput(input) {
+            if (input.value) {
+                input.style.border = '2px solid green';
+            }
+        }
+
+        function submitForm() {
+            var name = document.getElementById("name").value;
+            var pname = document.getElementById("pname").value;
+            var gender = document.getElementById("gender").value;
+            var pass = document.getElementById("pass").value;
+            var email = document.getElementById("email").value;
+            var add = document.getElementById("add").value;
+            var interest = document.getElementById("interest").value;
+
+            var displayDiv = document.getElementById("displayValues");
+            displayDiv.innerHTML = "<h2>Entered Values:</h2>" +"<p>Name: " + name + "</p>" + "<p>Preferred Name: " + pname + "</p>" + "<p>Gender: " + gender + "</p>" + "<p>Password: " + pass + "</p>" + "<p>Email: " + email + "</p>" + "<p>Address: " + add + "</p>" + "<p>Interest: " + interest + "</p>";
+        }
+
+        function clearValues() {
+            var displayDiv = document.getElementById("displayValues");
+            displayDiv.innerHTML = ""; 
+            resetForm();
+        }
+
+        function resetForm() {
+            var inputs = document.getElementsByTagName('input');
+            var textarea = document.getElementsByTagName('textarea');
+            var select = document.getElementsByTagName('select');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].style.border = '1px solid #ccc';
+            }
+            for (var i = 0; i < textarea.length; i++) {
+                textarea[i].style.border = '1px solid #ccc';
+            }
+            for (var i = 0; i < select.length; i++) {
+                select[i].style.border = '1px solid #ccc';
+            }
+        }
+    </script>
+</body>
+</html>
